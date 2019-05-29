@@ -1,0 +1,91 @@
+###########################
+### Home Assistant Core ###
+###########################
+
+homeassistant:
+  name: Home
+  latitude: !secret home_latitude
+  longitude: !secret home_longtitude
+  elevation: 115
+  unit_system: metric
+  temperature_unit: C
+  time_zone: Europe/Oslo
+  customize: !include config/customize.yaml
+
+
+frontend:       # enables frontend
+config:         # enables configurations panel
+map:            # enables map panel
+history:        # enables history panel
+logbook:        # enables logbook panel
+system_health:  # enables system health monitoring
+
+lovelace:       # enables lovelace in yaml-mode
+  mode: yaml
+
+
+
+################
+### INCLUDES ###
+################
+
+automation: !include_dir_merge_list automation/
+binary_sensor: !include config/binary_sensor.yaml
+group: !include groups/groups.yaml
+input_boolean: !include config/input_boolean.yaml
+input_datetime: !include config/input_datetime.yaml
+light: !include groups/lights.yaml
+script: !include_dir_merge_named scripts/
+zone: !include config/zones.yaml
+
+
+
+#######################
+### DEVICE TRACKERS ###
+#######################
+
+# nmap
+device_tracker:
+  - platform: nmap_tracker
+    hosts:
+      - 192.168.1.122
+      - 192.168.1.123
+    consider_home: 24:00:00
+
+# Owntracks
+owntracks:
+  max_gps_accuracy: 200
+
+
+
+##################
+### COMPONENTS ###
+##################
+
+# Cloud
+cloud: !include components/cloud.yaml
+
+# Nissan Leaf
+nissan_leaf: !include components/nissan_leaf.yaml
+
+# Sensor
+sensor: !include components/sensor.yaml
+
+# Sun
+sun:
+
+# Text to speech
+tts:
+  - platform: google_translate
+    service_name: google_say
+
+# Tibber
+tibber:
+  access_token: !secret tibber_access_token
+
+# Vacuum
+vacuum:
+  - platform: xiaomi_miio
+    host: !secret vacuum_host
+    token: !secret vacuum_token
+    name: Oda

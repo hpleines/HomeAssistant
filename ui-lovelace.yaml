@@ -1,0 +1,227 @@
+resources:
+  - url: /local/mini-media-player-bundle.js?v=1.1.3
+    type: module
+
+title: Home
+views:
+
+  ### DEFAULT VIEW ###
+
+  - title: default_view
+    icon: mdi:home
+    badges:
+      - device_tracker.hpleines_mate20
+      - device_tracker.khwanchanok
+    cards:
+      - type: vertical-stack
+        cards:
+          # lights
+          - type: horizontal-stack
+            cards:
+              - type: light
+                entity: light.bedroom_lights
+                name: Bedroom
+
+              - type: light
+                entity: light.living_room_lights
+                name: Living Room
+
+          - type: horizontal-stack
+            cards:
+              - type: light
+                entity: light.desk_lamp
+                name: Second Bedroom
+
+              - type: light
+                entity: light.panel_entrance
+                name: Entrance
+
+          # sonos group player
+          - type: horizontal-stack
+            cards:
+              - type: custom:mini-media-player
+                entity: media_player.bedroom
+                icon: mdi:speaker
+                artwork: cover
+                hide:
+                  mute: true
+                sonos:
+                  show_group_count: true
+                  sync_volume: true
+                  entities:
+                    - entity_id: media_player.living_room
+                      name: Sonos Living Room
+                    - entity_id: media_player.bedroom
+                      name: Sonos Bedroom            
+                    - entity_id: media_player.bathroom
+                      name: Sonos Bathroom
+
+          - type: vertical-stack
+            cards:
+              # weekday alarm
+              - type: entities
+                title: Weekday alarm
+                show_header_toggle: false
+                entities:
+                  - entity: automation.weekday_alarm
+                    icon: mdi:alarm
+                  - entity: input_datetime.weekday_alarm_time
+                    icon: mdi:clock-outline
+              
+              # weekend alarm
+              - type: entities
+                title: Weekend alarm
+                show_header_toggle: false
+                entities:
+                  - entity: automation.weekend_alarm
+                    icon: mdi:alarm
+                  - entity: input_datetime.weekend_alarm_time
+                    icon: mdi:clock-outline
+
+              # vacuum timer
+              - type: entities
+                title: Vacuum timer
+                show_header_toggle: false
+                entities:
+                  - entity: automation.vacuum_weekday_routine
+                    icon: mdi:robot-vacuum
+                  - entity: input_datetime.vacuum_time
+                    icon: mdi:clock-outline
+              
+
+  ### LIVING ROOM ###
+
+  - title: Living Room
+    icon: mdi:sofa
+    cards:
+      - type: vertical-stack
+        cards:
+          # chromecast
+          - type: custom:mini-media-player
+            entity: media_player.chromecast
+            artwork: full-cover
+
+          # sonos
+          - type: custom:mini-media-player
+            entity: media_player.living_room
+            artwork: full-cover
+
+          # lights
+          - type: horizontal-stack
+            cards:
+              - type: light
+                entity: light.eating_table
+                name: Eating Table
+
+              - type: light
+                entity: light.standing_lamp
+                name: Standing Lamp
+
+  ### KITCHEN ###
+
+  - title: Kitchen
+    icon: mdi:fridge
+    cards:
+      - type: vertical-stack
+        cards:
+          # vacuum cleaner
+          - type: entities
+            title: Oda
+            show_header_toggle: false
+            entities:
+              - entity: vacuum.oda
+                icon: mdi:robot-vacuum
+              - entity: script.vacuum_kitchen
+                icon: mdi:broom
+              - entity: script.vacuum_empty
+                icon: mdi:delete-empty
+
+
+  ### BEDROOM ###
+
+  - title: Bedroom
+    icon: mdi:hotel
+    cards:
+      - type: vertical-stack
+        cards:
+          # sonos
+          - type: custom:mini-media-player
+            entity: media_player.living_room
+            artwork: full-cover
+
+          # lights
+          - type: horizontal-stack
+            cards:
+              - type: light
+                entity: light.bedroom_left
+                name: Bedroom Left
+              - type: light
+                entity: light.bedroom_right
+                name: Bedroom Right
+          
+          # routines
+          - type: entity-button
+            entity: script.bedtime_routine
+            name: Bedtime routine
+            icon: mdi:sleep
+          
+
+  ### SECOND BEDROOM ###
+
+  - title: Second Bedroom
+    icon: mdi:bed-empty
+    cards:
+      - type: vertical-stack
+        cards:
+          # lights
+          - type: light
+            entity: light.desk_lamp
+            name: Desk Lamp
+            icon: mdi:desk-lamp
+
+  ### BATHROOM ###
+
+  - title: Bathroom
+    icon: mdi:shower
+    cards:
+      - type: vertical-stack
+        cards:
+          # sonos
+          - type: custom:mini-media-player
+            entity: media_player.bathroom
+            artwork: full-cover
+
+          # washing machine
+          - type: entities
+            title: Washing Machine
+            show_header_toggle: false
+            entities:
+              - entity: switch.fibaro_system_fgwpe_f_wall_plug_gen5_switch
+                name: Washing Machine Power On/Off
+              - entity: sensor.fibaro_system_fgwpe_f_wall_plug_gen5_power
+                name: Power Consumption
+              - entity: sensor.fibaro_system_fgwpe_f_wall_plug_gen5_energy
+                name: Energy Used
+          - type: history-graph
+            entities: 
+              - entity: sensor.fibaro_system_fgwpe_f_wall_plug_gen5_power_2
+                name: Washing Machine Power Cunsumption
+              - entity:  sensor.fibaro_system_fgwpe_f_wall_plug_gen5_energy
+                name: Washing Machine Energy Used
+
+  ### CAR ###
+  - title: Car
+    icon: mdi:car
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Nissan Leaf
+            show_header_toggle: false
+            entities:
+              - entity: switch.leinesbil_climate_control
+                icon: mdi:fan
+              - entity: binary_sensor.leinesbil_charging_status
+              - entity: binary_sensor.leinesbil_plug_status
+              - entity: sensor.leinesbil_charge
+              - entity: sensor.leinesbil_range_ac

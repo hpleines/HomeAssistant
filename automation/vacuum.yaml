@@ -1,0 +1,31 @@
+# vacuum weekday routine
+- alias: 'Vacuum weekday routine'
+  trigger:
+    - platform: template
+      value_template: "{{ states('sensor.time') == (states.input_datetime.vacuum_time.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.workday_sensor
+      state: 'on'
+    - condition: state
+      entity_id: group.all_devices
+      state: 'not_home'
+  action:
+    - service: vacuum.set_fan_speed
+      data:
+        entity_id: vacuum.Oda
+        fan_speed: turbo
+    - service: vacuum.start
+      entity_id: vacuum.oda
+
+# vacuum empty routine
+- alias: 'Vacuum empty routine'
+  trigger:
+    platform: time
+    at: '12:00:00'
+  condition:
+    condition: time
+    weekday: thu
+  action:
+    service: script.turn_on
+    entity_id: script.vacuum_empty

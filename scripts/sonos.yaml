@@ -1,0 +1,19 @@
+# Group all, bedroom master
+sonos_group_all:
+  alias: "Group all speakers"
+  sequence:
+    - service: sonos.join
+      data:
+        master: media_player.bedroom
+      entity_id:
+        - media_player.living_room
+        - media_player.bathroom
+
+# Sleep timer, 15 min
+sonos_sleep_timer:
+  alias: "Set sleep timer"
+  sequence:
+    - service: sonos.set_sleep_timer
+      data:
+        entity_id: media_player.bedroom
+        sleep_time: 900

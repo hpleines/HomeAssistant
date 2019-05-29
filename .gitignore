@@ -1,0 +1,17 @@
+*.log
+*.db
+*.xml
+*.txt
+*.sqlite
+
+.cloud/
+.git/
+.storage/
+deps/
+tts/
+www/
+
+.HA_VERSION
+.uuid
+secrets.yaml
+known_devices.yaml

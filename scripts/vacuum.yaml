@@ -1,0 +1,23 @@
+# Vacuum kitchen
+vacuum_kitchen:
+  alias: "Vacuum the kitchen"
+  sequence:
+    - service: vacuum.set_fan_speed
+      entity_id: vacuum.Oda
+      data:
+        fan_speed: quiet
+    - service: vacuum.send_command
+      entity_id: vacuum.Oda
+      data:
+        command: app_zoned_clean
+        params: [[25742, 22742, 26492, 24942, 1], [25729, 22766, 28179, 23466, 1]]
+
+# Vacuum moves to position beneath kitchen trash can
+vacuum_empty:
+  alias: "Empty the vacuum"
+  sequence:
+    - service: vacuum.send_command
+      entity_id: vacuum.Oda
+      data:
+        command: app_goto_target
+        params: [26400, 22950]

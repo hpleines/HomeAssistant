@@ -1,0 +1,19 @@
+automation.vacuum_weekday_routine:
+  icon: mdi:robot-vacuum
+
+automation.weekday_alarm:
+  icon: mdi:alarm-check
+
+automation.weekend_alarm:
+  icon: mdi:alarm-check
+
+input_datetime.vacuum_time:
+  friendly_name: Time
+
+input_datetime.weekday_alarm_time:
+  friendly_name: Time
+  icon: mdi:alarm
+
+input_datetime.weekend_alarm_time:
+  friendly_name: Time
+  icon: mdi:alarm

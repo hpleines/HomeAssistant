@@ -1,0 +1,57 @@
+default_view:
+  view: true
+  icon: mdi:home
+  entities:
+    - script.sonos_group_all
+    - group.weekday_alarm
+    - group.vacuum_timer
+
+living_room:
+  name: Living Room
+  view: true
+  entities:
+    - media_player.living_room
+    - light.standing_lamp
+    - light.eating_table
+
+bedroom:
+  name: Bedroom
+  view: true
+  entities:
+    - light.bedroom_left
+    - light.bedroom_right
+    - media_player.bedroom
+
+kitchen:
+  name: Kitchen
+  view: true
+  entities:
+    - group.vacuum
+    - light.eating_table
+    
+bathroom:
+  name: Bathroom
+  view: true
+  entities:
+   - media_player.bathroom
+
+vacuum_timer:
+  name: Vacuum Timer
+  control: hidden
+  entities:
+    - automation.vacuum_weekday_routine
+    - input_datetime.vacuum_time
+
+weekday_alarm:
+  name: Weekday alarm
+  control: hidden
+  entities:
+    - automation.weekday_alarm
+    - input_datetime.weekday_alarm_time
+
+vacuum:
+  name: Oda
+  control: hidden
+  entities:
+    - vacuum.oda
+    - group.vacuum_timer

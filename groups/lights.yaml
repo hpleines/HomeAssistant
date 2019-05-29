@@ -1,0 +1,13 @@
+# Bedroom lights
+- platform: group
+  name: Bedroom Lights
+  entities:
+    - light.bedroom_left
+    - light.bedroom_right
+
+# Living Room lights
+- platform: group
+  name: Living Room Lights
+  entities:
+    - light.eating_table
+    - light.standing_lamp

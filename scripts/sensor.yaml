@@ -1,0 +1,26 @@
+# phone plugged in sensor
+sensor_phone_plugged_in:
+  alias: Set phone plugged in status to 'on'
+  sequence:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.phone_plugged_in
+
+sensor_phone_plugged_out:
+  alias: Set phone plugged in status to 'off'
+  sequence:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.phone_plugged_in
+
+# hans petter presence sensor
+hanspetter_present:
+  alias: Set Hans Petter presence to 'Home'
+  sequence:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.hanspetter_home
+
+# hans petter presence sensor
+hanspetter_absent:
+  alias: Set Hans Petter presence to 'Not Home'
+  sequence:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.hanspetter_home
