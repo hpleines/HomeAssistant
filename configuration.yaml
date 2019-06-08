@@ -40,24 +40,6 @@ zone: !include config/zones.yaml
 
 
 
-#######################
-### DEVICE TRACKERS ###
-#######################
-
-# nmap
-device_tracker:
-  - platform: nmap_tracker
-    hosts:
-      - 192.168.1.122
-      - 192.168.1.123
-    consider_home: 24:00:00
-
-# Owntracks
-owntracks:
-  max_gps_accuracy: 200
-
-
-
 ##################
 ### COMPONENTS ###
 ##################

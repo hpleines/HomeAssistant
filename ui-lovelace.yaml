@@ -11,7 +11,7 @@ views:
     icon: mdi:home
     badges:
       - device_tracker.hpleines_mate20
-      - device_tracker.khwanchanok
+      - device_tracker.khwan_galaxy
     cards:
       - type: vertical-stack
         cards:
@@ -146,7 +146,7 @@ views:
         cards:
           # sonos
           - type: custom:mini-media-player
-            entity: media_player.living_room
+            entity: media_player.bedroom
             artwork: full-cover
 
           # lights
@@ -164,6 +164,11 @@ views:
             entity: script.bedtime_routine
             name: Bedtime routine
             icon: mdi:sleep
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              service_data:
+                entity_id: script.bedtime_routine
           
 
   ### SECOND BEDROOM ###
