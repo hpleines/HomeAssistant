@@ -1,0 +1,22 @@
+# Cast radio NRK P3
+cast_radio:
+  alias: "Cast radio"
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.bedroom_display
+        media_content_id: "http://lyd.nrk.no/nrk_radio_p3_mp3_h"
+        media_content_type: audio/mp3
+
+cast_music:
+  alias: "Cast music"
+  sequence:
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.spotify
+        source: HANSPETTER-PC
+    - service: media_player.play_media
+      data:
+        entity: media_player.spotify
+        media_content_id: "spotify:playlist:37i9dQZF1DWUJF24WXSSyO"
+        media_content_type: playlist

@@ -2,18 +2,9 @@
 ### Home Assistant Core ###
 ###########################
 
-homeassistant:
-  name: Home
-  latitude: !secret home_latitude
-  longitude: !secret home_longtitude
-  elevation: 115
-  unit_system: metric
-  temperature_unit: C
-  time_zone: Europe/Oslo
-  customize: !include config/customize.yaml
-
-
 frontend:       # enables frontend
+  themes: !include config/themes.yaml
+  
 config:         # enables configurations panel
 map:            # enables map panel
 history:        # enables history panel
@@ -32,7 +23,6 @@ lovelace:       # enables lovelace in yaml-mode
 automation: !include_dir_merge_list automation/
 binary_sensor: !include config/binary_sensor.yaml
 group: !include groups/groups.yaml
-input_boolean: !include config/input_boolean.yaml
 input_datetime: !include config/input_datetime.yaml
 light: !include groups/lights.yaml
 script: !include_dir_merge_named scripts/
@@ -45,13 +35,53 @@ zone: !include config/zones.yaml
 ##################
 
 # Cloud
-cloud: !include components/cloud.yaml
+cloud:
+
+# Device tracker
+device_tracker:
+  - platform: bluetooth_tracker
+    interval_seconds: 10
+    consider_home: 900
+    new_device_defaults:
+      track_new_devices: false
+      hide_if_away: true
+
+# Google Home
+# googlehome:
+#   devices:
+#     - host: !secret bedroom_display_host
+#       track_alarms: true
+#       track_devices: false
 
 # Nissan Leaf
-nissan_leaf: !include components/nissan_leaf.yaml
+nissan_leaf:
+  username: !secret username
+  password: !secret car_password
+  region: NE
+  nissan_connect: false
+  update_interval:
+    hours: 1
+  update_interval_charging:
+    hours: 1
+  update_interval_climate:
+    minutes: 5
+  force_miles: false
 
 # Sensor
-sensor: !include components/sensor.yaml
+sensor:
+  # Time and date
+  - platform: time_date
+    display_options:
+      - 'time'
+
+  # Weather
+  - platform: yr
+
+# Spotify
+media_player:
+  - platform: spotify
+    client_id: !secret spotify_client_id
+    client_secret: !secret spotify_client_secret
 
 # Sun
 sun:
@@ -71,3 +101,9 @@ vacuum:
     host: !secret vacuum_host
     token: !secret vacuum_token
     name: Oda
+
+# Weather
+weather:
+  - platform: darksky
+    api_key: !secret dark_sky_api_key
+    mode: daily

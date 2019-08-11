@@ -6,14 +6,3 @@ automation.weekday_alarm:
 
 automation.weekend_alarm:
   icon: mdi:alarm-check
-
-input_datetime.vacuum_time:
-  friendly_name: Time
-
-input_datetime.weekday_alarm_time:
-  friendly_name: Time
-  icon: mdi:alarm
-
-input_datetime.weekend_alarm_time:
-  friendly_name: Time
-  icon: mdi:alarm

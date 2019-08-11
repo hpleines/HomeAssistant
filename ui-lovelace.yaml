@@ -1,232 +1,288 @@
 resources:
-  - url: /local/mini-media-player-bundle.js?v=1.1.3
+  - url: /local/mini-media-player-bundle.js?v=1.2.2
     type: module
 
 title: Home
 views:
 
+  ####################
   ### DEFAULT VIEW ###
+  ####################
 
   - title: default_view
     icon: mdi:home
-    badges:
-      - device_tracker.hpleines_mate20
-      - device_tracker.khwan_galaxy
     cards:
-      - type: vertical-stack
+      - type: horizontal-stack
         cards:
-          # lights
-          - type: horizontal-stack
-            cards:
-              - type: light
-                entity: light.bedroom_lights
-                name: Bedroom
+      # people
+        - type: picture-entity
+          entity: device_tracker.hp_mate_20
+          state_image:
+            "home": /local/hp_v2.jpg
+            "not_home": /local/hp_bw_v2.jpg
+        - type: picture-entity
+          entity: device_tracker.khwan_mate_20
+          state_image:
+            "home": /local/kh_v2.jpg
+            "not_home": /local/kh_bw_v2.jpg
 
-              - type: light
-                entity: light.living_room_lights
-                name: Living Room
+      # lights
+      - type: glance
+        title: Lights
+        show_state: false
+        entities:
+          - entity: light.bedroom_lights
+            name: Bedroom
+            tap_action:
+              action: toggle
+          - entity: light.living_room_lights
+            name: Living room
+            tap_action:
+              action: toggle
+          - entity: light.desk_lamp
+            name: Second bedroom
+            tap_action:
+              action: toggle
+          - entity: light.entrance_panel
+            name: Entrance
+            tap_action:
+              action: toggle
 
-          - type: horizontal-stack
-            cards:
-              - type: light
-                entity: light.desk_lamp
-                name: Second Bedroom
+      # sonos group player
+      - type: custom:mini-media-player
+        entity: media_player.second_bedroom
+        icon: mdi:speaker
+        artwork: cover
+        hide:
+          mute: true
+        sonos:
+          show_group_count: true
+          sync_volume: true
+          entities:
+            - entity_id: media_player.living_room
+              name: Living Room
+            - entity_id: media_player.second_bedroom
+              name: Second Bedroom            
+            - entity_id: media_player.bathroom
+              name: Bathroom
 
-              - type: light
-                entity: light.panel_entrance
-                name: Entrance
+      # alarms and routines
+      - type: entities
+        title: Alarms and routines
+        show_header_toggle: false
+        entities:
+          - entity: automation.weekday_alarm
+            icon: mdi:alarm
+          - entity: input_datetime.weekday_alarm_time
+            icon: mdi:clock-outline
+            name: Time
+          - type: divider
+            style:
+              height: 2px
+              background-color: "#B3B3B3"
+          - entity: automation.weekend_alarm
+            icon: mdi:alarm
+          - entity: input_datetime.weekend_alarm_time
+            icon: mdi:clock-outline
+            name: Time
+          - type: divider
+            style:
+              height: 2px
+              background-color: "#B3B3B3"
+          - entity: automation.vacuum_weekday_routine
+            icon: mdi:robot-vacuum
+          - entity: input_datetime.vacuum_time
+            icon: mdi:clock-outline
+            name: Time
+      
+      # weather forecast
+      - type: weather-forecast
+        entity: weather.dark_sky
 
-          # sonos group player
-          - type: horizontal-stack
-            cards:
-              - type: custom:mini-media-player
-                entity: media_player.bedroom
-                icon: mdi:speaker
-                artwork: cover
-                hide:
-                  mute: true
-                sonos:
-                  show_group_count: true
-                  sync_volume: true
-                  entities:
-                    - entity_id: media_player.living_room
-                      name: Sonos Living Room
-                    - entity_id: media_player.bedroom
-                      name: Sonos Bedroom            
-                    - entity_id: media_player.bathroom
-                      name: Sonos Bathroom
 
-          - type: vertical-stack
-            cards:
-              # weekday alarm
-              - type: entities
-                title: Weekday alarm
-                show_header_toggle: false
-                entities:
-                  - entity: automation.weekday_alarm
-                    icon: mdi:alarm
-                  - entity: input_datetime.weekday_alarm_time
-                    icon: mdi:clock-outline
-              
-              # weekend alarm
-              - type: entities
-                title: Weekend alarm
-                show_header_toggle: false
-                entities:
-                  - entity: automation.weekend_alarm
-                    icon: mdi:alarm
-                  - entity: input_datetime.weekend_alarm_time
-                    icon: mdi:clock-outline
 
-              # vacuum timer
-              - type: entities
-                title: Vacuum timer
-                show_header_toggle: false
-                entities:
-                  - entity: automation.vacuum_weekday_routine
-                    icon: mdi:robot-vacuum
-                  - entity: input_datetime.vacuum_time
-                    icon: mdi:clock-outline
-              
-
+  ###################
   ### LIVING ROOM ###
+  ###################
 
-  - title: Living Room
+  - title: Living room
     icon: mdi:sofa
     cards:
-      - type: vertical-stack
-        cards:
-          # chromecast
-          - type: custom:mini-media-player
-            entity: media_player.chromecast
-            artwork: full-cover
+      # chromecast
+      - type: custom:mini-media-player
+        entity: media_player.living_room_tv
+        artwork: full-cover
 
-          # sonos
-          - type: custom:mini-media-player
-            entity: media_player.living_room
-            artwork: full-cover
+      # sonos
+      - type: custom:mini-media-player
+        entity: media_player.living_room
+        artwork: full-cover
+        hide:
+          mute: true
+        sonos:
+          show_group_count: true
+          sync_volume: true
+          entities:
+            - entity_id: media_player.living_room
+              name: Living Room
+            - entity_id: media_player.second_bedroom
+              name: Second Bedroom            
+            - entity_id: media_player.bathroom
+              name: Bathroom
 
-          # lights
-          - type: horizontal-stack
-            cards:
-              - type: light
-                entity: light.eating_table
-                name: Eating Table
+      # lights
+      - type: light
+        entity: light.standing_lamp
+        name: Standing Lamp
 
-              - type: light
-                entity: light.standing_lamp
-                name: Standing Lamp
 
+
+  ###############
   ### KITCHEN ###
+  ###############
 
   - title: Kitchen
     icon: mdi:fridge
     cards:
-      - type: vertical-stack
-        cards:
-          # vacuum cleaner
-          - type: entities
-            title: Oda
-            show_header_toggle: false
-            entities:
-              - entity: vacuum.oda
-                icon: mdi:robot-vacuum
-              - entity: script.vacuum_kitchen
-                icon: mdi:broom
-              - entity: script.vacuum_empty
-                icon: mdi:delete-empty
+      # vacuum cleaner
+      - type: entities
+        title: Oda
+        show_header_toggle: false
+        entities:
+          - entity: vacuum.oda
+            icon: mdi:robot-vacuum
+          - entity: script.vacuum_kitchen
+            icon: mdi:broom
+          - entity: script.vacuum_empty
+            icon: mdi:delete-empty
 
 
+
+  ###############
   ### BEDROOM ###
+  ###############
 
   - title: Bedroom
     icon: mdi:hotel
     cards:
-      - type: vertical-stack
+      # bedroom display
+      - type: custom:mini-media-player
+        entity: media_player.bedroom_display
+        artwork: full-cover
+
+      # lights
+      - type: horizontal-stack
         cards:
-          # sonos
-          - type: custom:mini-media-player
-            entity: media_player.bedroom
-            artwork: full-cover
-
-          # lights
-          - type: horizontal-stack
-            cards:
-              - type: light
-                entity: light.bedroom_left
-                name: Bedroom Left
-              - type: light
-                entity: light.bedroom_right
-                name: Bedroom Right
-          
-          # routines
-          - type: entity-button
-            entity: script.bedtime_routine
-            name: Bedtime routine
-            icon: mdi:sleep
-            tap_action:
-              action: call-service
-              service: script.turn_on
-              service_data:
-                entity_id: script.bedtime_routine
+          - type: light
+            entity: light.bedroom_left
+            name: Bedroom Left
+          - type: light
+            entity: light.bedroom_right
+            name: Bedroom Right
+      
+      # routines
+      - type: entity-button
+        entity: script.bedtime_routine
+        name: Bedtime routine
+        icon: mdi:sleep
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.bedtime_routine
           
 
+
+  ######################
   ### SECOND BEDROOM ###
+  ######################
 
-  - title: Second Bedroom
+  - title: Second bedroom
     icon: mdi:bed-empty
     cards:
-      - type: vertical-stack
-        cards:
-          # lights
-          - type: light
-            entity: light.desk_lamp
-            name: Desk Lamp
-            icon: mdi:desk-lamp
+      # lights
+      - type: light
+        entity: light.desk_lamp
+        name: Desk Lamp
+        icon: mdi:desk-lamp
+      
+      # sonos
+      - type: custom:mini-media-player
+        entity: media_player.second_bedroom
+        artwork: full-cover
+        hide:
+          mute: true
+        sonos:
+          show_group_count: true
+          sync_volume: true
+          entities:
+            - entity_id: media_player.living_room
+              name: Living Room
+            - entity_id: media_player.second_bedroom
+              name: Second Bedroom            
+            - entity_id: media_player.bathroom
+              name: Bathroom
 
+
+
+  ################
   ### BATHROOM ###
+  ################
 
   - title: Bathroom
     icon: mdi:shower
     cards:
-      - type: vertical-stack
-        cards:
-          # sonos
-          - type: custom:mini-media-player
-            entity: media_player.bathroom
-            artwork: full-cover
+      # sonos
+      - type: custom:mini-media-player
+        entity: media_player.bathroom
+        artwork: full-cover
+        hide:
+          mute: true
+        sonos:
+          show_group_count: true
+          sync_volume: true
+          entities:
+            - entity_id: media_player.living_room
+              name: Living Room
+            - entity_id: media_player.second_bedroom
+              name: Second Bedroom            
+            - entity_id: media_player.bathroom
+              name: Bathroom
 
-          # washing machine
-          - type: entities
-            title: Washing Machine
-            show_header_toggle: false
-            entities:
-              - entity: switch.fibaro_system_fgwpe_f_wall_plug_gen5_switch
-                name: Washing Machine Power On/Off
-              - entity: sensor.fibaro_system_fgwpe_f_wall_plug_gen5_power
-                name: Power Consumption
-              - entity: sensor.fibaro_system_fgwpe_f_wall_plug_gen5_energy
-                name: Energy Used
-          - type: history-graph
-            entities: 
-              - entity: sensor.fibaro_system_fgwpe_f_wall_plug_gen5_power_2
-                name: Washing Machine Power Cunsumption
-              - entity:  sensor.fibaro_system_fgwpe_f_wall_plug_gen5_energy
-                name: Washing Machine Energy Used
+      # washing machine
+      - type: entities
+        title: Washing Machine
+        show_header_toggle: false
+        entities:
+          - entity: switch.wall_plug_0_switch
+            name: Washing Machine Power On/Off
+          - entity: sensor.wall_plug_0_power
+            name: Current Power Consumption
+          - entity: sensor.wall_plug_0_energy
+            name: Total Energy Used
+      - type: history-graph
+        entities: 
+          - entity: sensor.wall_plug_0_power_2
+            name: Washing Machine Power Cunsumption
+          - entity:  sensor.wall_plug_0_energy
+            name: Washing Machine Energy Used
 
+
+
+  ###########
   ### CAR ###
+  ###########
+
   - title: Car
     icon: mdi:car
     cards:
-      - type: vertical-stack
-        cards:
-          - type: entities
-            title: Nissan Leaf
-            show_header_toggle: false
-            entities:
-              - entity: switch.leinesbil_climate_control
-                icon: mdi:fan
-              - entity: binary_sensor.leinesbil_charging_status
-              - entity: binary_sensor.leinesbil_plug_status
-              - entity: sensor.leinesbil_charge
-              - entity: sensor.leinesbil_range_ac
+      - type: entities
+        title: Nissan Leaf
+        show_header_toggle: false
+        entities:
+          - entity: switch.leinesbil_climate_control
+            icon: mdi:fan
+          - entity: binary_sensor.leinesbil_charging_status
+          - entity: binary_sensor.leinesbil_plug_status
+          - entity: sensor.leinesbil_charge
+          - entity: sensor.leinesbil_range_ac

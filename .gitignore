@@ -13,5 +13,6 @@ www/
 
 .HA_VERSION
 .uuid
+.spotify-token-cache
 secrets.yaml
 known_devices.yaml

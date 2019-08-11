@@ -4,7 +4,7 @@ sonos_group_all:
   sequence:
     - service: sonos.join
       data:
-        master: media_player.bedroom
+        master: media_player.second_bedroom
       entity_id:
         - media_player.living_room
         - media_player.bathroom
@@ -15,5 +15,5 @@ sonos_sleep_timer:
   sequence:
     - service: sonos.set_sleep_timer
       data:
-        entity_id: media_player.bedroom
+        entity_id: media_player.second_bedroom
         sleep_time: 900

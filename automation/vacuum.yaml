@@ -8,7 +8,7 @@
       entity_id: binary_sensor.workday_sensor
       state: 'on'
     - condition: state
-      entity_id: group.all_devices
+      entity_id: group.all_users
       state: 'not_home'
   action:
     - service: vacuum.set_fan_speed

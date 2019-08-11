@@ -20,7 +20,7 @@ bedroom:
   entities:
     - light.bedroom_left
     - light.bedroom_right
-    - media_player.bedroom
+    - media_player.second_bedroom
 
 kitchen:
   name: Kitchen
@@ -55,3 +55,9 @@ vacuum:
   entities:
     - vacuum.oda
     - group.vacuum_timer
+
+all_users:
+  name: All Users
+  entities:
+    - device_tracker.hp_mate_20
+    - device_tracker.khwan_mate_20
