@@ -1,8 +1,0 @@
-automation.vacuum_weekday_routine:
-  icon: mdi:robot-vacuum
-
-automation.weekday_alarm:
-  icon: mdi:alarm-check
-
-automation.weekend_alarm:
-  icon: mdi:alarm-check
