@@ -40,7 +40,7 @@ views:
             tap_action:
               action: toggle
           - entity: light.desk_lamp
-            name: Second bedroom
+            name: 2nd bedroom
             tap_action:
               action: toggle
           - entity: light.entrance_panel
