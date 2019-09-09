@@ -58,7 +58,6 @@ nissan_leaf:
   username: !secret username
   password: !secret car_password
   region: NE
-  nissan_connect: false
   update_interval:
     hours: 1
   update_interval_charging:
