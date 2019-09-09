@@ -97,7 +97,7 @@ views:
       
       # weather forecast
       - type: weather-forecast
-        entity: weather.dark_sky
+        entity: weather.home
 
 
 
